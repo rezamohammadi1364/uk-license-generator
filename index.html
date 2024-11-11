@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>UK Licence Number Generator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(4px);
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        label {
+            color: #34495e;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-weight: 500;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        input:focus, select:focus {
+            border-color: #3498db;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        .output-group {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .copy-button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            padding: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .copy-button:hover {
+            color: #2980b9;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .copy-feedback {
+            position: absolute;
+            right: 45px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #2ecc71;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            flex: 1;
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:first-child {
+            background: #3498db;
+            color: white;
+        }
+
+        button.random {
+            background: #2ecc71;
+            color: white;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        #OutputField {
+            background: #f8f9fa;
+            font-family: monospace;
+            text-align: center;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            padding-right: 45px; /* Space for copy button */
+        }
+
+        .contact-section {
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .contact-section h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .telegram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: #0088cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .telegram-link:hover {
+            background: #006699;
+            transform: translateY(-2px);
+        }
+
+        .credits {
+            color: #7f8c8d;
+            text-align: center;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    <script src="scripts/main.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>UK Licence Number Generator</h1>
+        <form>
+            <div class="input-group">
+                <label for="FirstName">First Name</label>
+                <input type="text" id="FirstName" required autofocus>
+            </div>
+
+            <div class="input-group">
+                <label for="LastName">Last Name</label>
+                <input type="text" id="LastName">
+            </div>
+
+            <div class="input-group">
+                <label for="Gender">Gender</label>
+                <select id="Gender">
+                    <option value="">Select Gender</option>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label for="DatePicker">Date of Birth</label>
+                <input type="date" id="DatePicker" value="">
+            </div>
+
+            <div class="input-group output-group">
+                <input readonly type="text" id="OutputField" placeholder="Generated License Number">
+                <span class="copy-feedback" id="copyFeedback">Copied!</span>
+                <button class="copy-button" onclick="copyToClipboard()" type="button">
+                    <i class="far fa-copy"></i>
+                </button>
+            </div>
+
+            <div class="button-group">
+                <button onclick="getUserInput()" type="button">
+                    <i class="fas fa-key"></i> Generate
+                </button>
+                <button onclick="generateRandomDetails(), getUserInput()" type="button" class="random">
+                    <i class="fas fa-random"></i> Randomize
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="container contact-section">
+        <h3>Contact Us</h3>
+        <a href="https://t.me/Freelancer_support_ict" class="telegram-link" target="_blank">
+            <i class="fab fa-telegram"></i>
+            Telegram Support
+        </a>
+        <div class="credits">
+            <p>Designed & Edited by Milad</p>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const outputField = document.getElementById('OutputField');
+            const copyFeedback = document.getElementById('copyFeedback');
+            
+            // Copy text
+            navigator.clipboard.writeText(outputField.value).then(() => {
+                // Show success message
+                copyFeedback.classList.add('show');
+                
+                // Remove message after 2 seconds
+                setTimeout(() => {
+                    copyFeedback.classList.remove('show');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
