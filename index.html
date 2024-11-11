@@ -7,7 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
+        
         * {
             margin: 0;
             padding: 0;
@@ -156,7 +158,7 @@
             text-align: center;
             font-size: 1.2rem;
             letter-spacing: 1px;
-            padding-right: 45px; /* Space for copy button */
+            padding-right: 45px;
         }
 
         .contact-section {
@@ -208,7 +210,6 @@
             }
         }
     </style>
-    <script src="scripts/main.js"></script>
 </head>
 <body>
     <div class="container">
@@ -269,20 +270,79 @@
     </div>
 
     <script>
+        // for copy text
         function copyToClipboard() {
             const outputField = document.getElementById('OutputField');
             const copyFeedback = document.getElementById('copyFeedback');
             
-            // Copy text
             navigator.clipboard.writeText(outputField.value).then(() => {
-                // Show success message
                 copyFeedback.classList.add('show');
                 
-                // Remove message after 2 seconds
                 setTimeout(() => {
                     copyFeedback.classList.remove('show');
                 }, 2000);
             });
+        }
+
+        // تابع برای تولید حروف تصادفی
+        function generateRandomLetters(length) {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += letters.charAt(Math.floor(Math.random() * letters.length));
+            }
+            return result;
+        }
+
+        // تابع برای تولید اعداد تصادفی
+        function generateRandomNumbers(length) {
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += Math.floor(Math.random() * 10);
+            }
+            return result;
+        }
+
+        // تابع برای تولید تاریخ تصادفی
+        function generateRandomDate() {
+            const start = new Date(1950, 0, 1);
+            const end = new Date(2005, 11, 31);
+            const randomDate = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+            return randomDate.toISOString().split('T')[0];
+        }
+
+        // تابع برای تولید اطلاعات تصادفی
+        function generateRandomDetails() {
+            const firstNames = ['John', 'Jane', 'Michael', 'Emma', 'William', 'Olivia', 'James', 'Sophie'];
+            const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis'];
+            
+            document.getElementById('FirstName').value = firstNames[Math.floor(Math.random() * firstNames.length)];
+            document.getElementById('LastName').value = lastNames[Math.floor(Math.random() * lastNames.length)];
+            document.getElementById('Gender').value = Math.random() < 0.5 ? 'm' : 'f';
+            document.getElementById('DatePicker').value = generateRandomDate();
+        }
+
+        // تابع برای گرفتن اطلاعات ورودی و تولید شماره مجوز
+        function getUserInput() {
+            const firstName = document.getElementById('FirstName').value.toUpperCase();
+            const lastName = document.getElementById('LastName').value.toUpperCase();
+            const gender = document.getElementById('Gender').value;
+            const dateOfBirth = document.getElementById('DatePicker').value;
+
+            if (!firstName || !lastName || !gender || !dateOfBirth) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // ساختار شماره مجوز: AAAA999999AA9AA
+            const randomNum1 = generateRandomNumbers(6);
+            const randomLetters1 = generateRandomLetters(2);
+            const randomNum2 = generateRandomNumbers(1);
+            const randomLetters2 = generateRandomLetters(2);
+
+            const licenseNumber = `${firstName.substring(0, 2)}${lastName.substring(0, 2)}${randomNum1}${randomLetters1}${randomNum2}${randomLetters2}`;
+            
+            document.getElementById('OutputField').value = licenseNumber;
         }
     </script>
 </body>
